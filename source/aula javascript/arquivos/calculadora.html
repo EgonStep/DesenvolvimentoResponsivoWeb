@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <input type="text" readonly="readonly" disabled="disabled" />
+    <br />
+    <input type="text" readonly="readonly" disabled="disabled" placeholder="informe o valor aqui" />
+    <br />
+    <input type="button" value="CE" />
+    <input type="button" value="C" />
+    <input type="button" value="&lArr;" />
+    <!-- "BACKSPACE" -->
+    <input type="button" value="&sol;" />
+    <!-- "/" -->
+    <br />
+    <input type="button" value="7" class="numeros" />
+    <input type="button" value="8" class="numeros" />
+    <input type="button" value="9" class="numeros" />
+    <input type="button" value="&times;" class="operacoes" />
+    <!-- "x" -->
+    <br />
+    <input type="button" value="4" class="numeros" />
+    <input type="button" value="5" class="numeros" />
+    <input type="button" value="6" class="numeros" />
+    <input type="button" value="&minus;" class="operacoes" />
+    <!-- "-" -->
+    <br />
+    <input type="button" value="3" class="numeros" />
+    <input type="button" value="2" class="numeros" />
+    <input type="button" value="1" class="numeros" />
+    <input type="button" value="&plus;" class="operacoes" />
+    <!-- "+" -->
+    <br />
+    <input type="button" value="&plusmn;" class="operacoes" />
+    <!-- "+-" -->
+    <input type="button" value="0" />
+    <input type="button" value="&comma;" class="numeros" />
+    <!-- "." -->
+    <input type="button" value="&equals;" id="btnIgual" />
+    <!-- "=" -->
+    <script>
+        var btnNumeros = document.getElementsByClassName("numeros");
+        var btnOperacoes = document.getElementsByClassName("operacoes");
+        var btnIgual = document.getElementById("btnIgual");
+        var operandos = [ "" ];
+        var operando = 0;
+
+        for (let i = 0; i < btnNumeros.length; i++) {
+            let btn = btnNumeros[i];
+            btn.addEventListener("click", function () {
+                operandos[operando] += this.value;
+                console.log(operandos[operando]);
+            });
+        }
+
+        for (let i = 0; i < btnOperacoes.length; i++) {
+            let btn = btnOperacoes[i];
+            btn.addEventListener("click", function () {
+                operando++;
+                operandos[operando] = this.value;
+                operando++;
+            });
+        }
+        ["99", "+", "765", "-", "66", "/" , "2"]
+
+        btnIgual.addEventListener("click", function () {
+            var res = Number.parseFloat(operandos[0]) + Number.parseFloat(operandos[1]);
+            console.log(res);
+        });
+
+
+        function numerosClicados () {
+            var num1 = Number.parseInt(num.value);
+            if (Number.isNaN(num1)) {
+                mostraErro("Valor não é um número válido");
+                return;
+            }
+            var num2 = Number.parseInt(num.value);
+            if (Number.isNaN(num2)){
+                mostraErro("Valor não é um número válido");
+                return;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+    <!-- https://www.anaesthetist.com/mnm/javascript/calc.htm -->
+
+    <input type="text" readonly="readonly" disabled="disabled" name="Display" onchange="apresentaValorAtual()" />
+    <br />
+    <input type="text" readonly="readonly" disabled="disabled" placeholder="informe o valor aqui" />
+    <br />
+    <input type="button" value="CE" OnClick="apagaDigito()">
+    <input type="button" value="C" OnClick="apagaTudo()" />
+    <input type="button" value="&lArr;" OnClick="apagaDigito()" />
+    <input type="button" value="&sol;" OnClick="todasOperacoes('/')" />
+    <br />
+    <input type="button" value="7" OnClick="adicionaDigito('7')" />
+    <input type="button" value="8" OnClick="adicionaDigito('8')" />
+    <input type="button" value="9" OnClick="adicionaDigito('9')" />
+    <input type="button" value="&times;" OnClick="todasOperacoes('*')" />
+    <br />
+    <input type="button" value="4" OnClick="adicionaDigito('4')" />
+    <input type="button" value="5" OnClick="adicionaDigito('5')" />
+    <input type="button" value="6" OnClick="adicionaDigito('6')" />
+    <input type="button" value="&minus;" OnClick="todasOperacoes('-')" />
+    <br />
+    <input type="button" value="3" OnClick="adicionaDigito('3')" />
+    <input type="button" value="2" OnClick="adicionaDigito('2')" />
+    <input type="button" value="1" OnClick="adicionaDigito('1')" />
+    <input type="button" value="&plus;" OnClick="todasOperacoes('+')" />
+    <br />
+    <input type="button" value="&plusmn;" OnClick="alteraDigito()" />
+    <input type="button" value="0" OnClick="adicionaDigito('0')" />
+    <input type="button" value="&comma;" OnClick="ponto('.')" />
+    <input type="button" value="&equals;" OnClick="calcular()" />
+
+    <script>
+
+        /*
+            **Calculadora**
+            O que faz // Nome
+
+            Adiciona um numero quando clica com o mouse // adicinaDigito
+            Apaga os valores da tela // apagaDigito e apagaTudo
+            Altera numero para positivo ou negativo // alteraDigito
+            Porcentagem // porcentagem
+            Divisão // dividir
+            Multiplicação // multi
+            Diminuir // menos
+            Adicionar // mais
+            Resultado da operação // igual
+            Ponto decimal // pontoDecimal
+            
+            Todos as variaveis serão ativadas por clique do mouse = onClick        
+        
+            **Variáveis que a Calculadora irá utilizar**
+
+            Valor armazenado na memoria // memoria
+            Valor atual sendo digitado // valorAtual
+            Clicar no botão para realizar uma operação // operacao
+            Comprimento maximo de numeros digitados // comprimentoMax
+         */
+
+        var memoria = "0";
+        var valorAtual = "0";
+        var operacao = 0;
+        var comprimentoMax = 30; // Maximo de 30 numeros digitados
+
+        // Criar a função de clicar no botao e digitar um numero
+        function adicionaDigito(digito) {
+            if (valorAtual.length > comprimentoMax) {
+                valorAtual = "Erro valor muito extenso";
+            } else {
+                if ((eval(valorAtual) == 0) && valorAtual.indexOf(".") == -1) {
+                    valorAtual = digito;
+                } else {
+                    valorAtual = valorAtual + digito;
+                }
+            }
+            document.body.Display.value = valorAtual;
+        }
+
+        // Limpar valores e operações da calculadora (reset)
+        function apagaDigito() {
+            valorAtual = "0";
+            document.body.Display.value = valorAtual;
+        }
+
+        function apagaTudo() {
+            valorAtual = "0";
+            operacao = 0;
+            memoria = "0";
+            document.body.Display.value = valorAtual;
+        }
+
+        // Alterar o numero para positivo ou negativo 
+        function alteraDigito() {
+            if (valorAtual.indexOf("-") == 0) {
+                valorAtual = valorAtual.substring(1);
+            } else {
+                valorAtual = "-" + valorAtual;
+            }
+            document.body.Display.value = valorAtual;
+        }
+
+        // Funções das operações matemáticas
+        function todasOperacoes(op) {
+            if (op.indexOf("*") > -1) {
+                operacao = 1;
+            }
+            if (op.indexOf("/") > -1) {
+                operacao = 2;
+            }
+            if (op.indexOf("+") > -1) {
+                operacao = 3;
+            }
+            if (op.indexOf("-") > -1) {
+                operacao = 4;
+            }
+
+            memoria = valorAtual;
+            valorAtual = " ";
+            document.body.Display.value = valorAtual;
+        }
+
+        function calcular() {
+            if (operacao == 1) {
+                valorAtual = eval(memoria) * eval(valorAtual);
+            }
+            if (operacao == 2) {
+                valorAtual = eval(memoria) / eval(valorAtual);
+            }
+            if (operacao == 3) {
+                valorAtual = eval(memoria) + eval(valorAtual);
+            }
+            if (operacao == 4) {
+                valorAtual = eval(memoria) - eval(valorAtual);
+            }
+            operacao = 0;
+            memoria = "0";
+            document.body.Display.value = valorAtual;
+        }
+
+        function ponto() {
+            if (valorAtual.length == 0) {
+                valorAtual = "0.";
+            } else {
+                if (valorAtual.indexOf(".") == -1) {
+                    valorAtual = valorAtual + ".";
+                }
+            }
+            document.body.Display.value = valorAtual;
+        }
+
+        function apresentaValorAtual() {
+            valorAtual = document.body.Display.value;
+            valorAtual = " " + parseFloat(valorAtual);
+            if (valorAtual.indexOf("NaN") != -1) {
+                valorAtual = "Valor não definido";
+            }
+            document.body.Display.value = valorAtual;
+        }
+    </script>
+</body>
+
+</html>

@@ -25,6 +25,9 @@
         * // t: 2
         * 
         */
+        // variavel let depois de utilizada será descartada, por exemplo dentro do FOR o let i = 0 
+        // será descartada fora do loop
+
         function maxCharacter(str) {
             var guardaValor = {}; // Inicialmente um objeto vazio
             for (var i = 0; i < str.length; i++) {
@@ -43,10 +46,17 @@
                 var charRecorrente = "", numeroVezes = 0;
 
                 for (var key in guardaValor) {
+                    /* for...in interage sobre propriedades enumeradas de um objeto, na ordem original de 
+                    inserção */
+
                     guardaValor[key];
                     if (guardaValor[key] > numeroVezes) {
                         charRecorrente = key;
                         numeroVezes = guardaValor[key];
+                        /* percorremos o if caso o valor da key seja maior que zero, com isso
+                        assumira o maior valor no guardaValor[key] e so será substituido se outra key for
+                        maior que a atual. 
+                        */
                     }
                 }
 

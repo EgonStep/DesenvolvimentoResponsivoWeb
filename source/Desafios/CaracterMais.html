@@ -26,10 +26,32 @@
         * 
         */
         function maxCharacter(str) {
-            var contador = 0;
-            for (let i = 0; i <= str.length; i++) {
-                contador += str[i];
+            var guardaValor = {}; // Inicialmente um objeto vazio
+            for (var i = 0; i < str.length; i++) {
+                /*"testar".length é igual a "testar"["length"] duas formas validas de
+                acessar propriedades de um objeto */
+                if (!guardaValor[str[i]]) {
+                    guardaValor[str[i]] = 1;
+                    /*Quando o objeto guardaValor não possui um valor para seu atributo, exemplo, t = 0
+                    atribuimos o valor de 1, ou seja, t = 1.
+                    */
+                } else {
+                    guardaValor[str[i]]++;
+                    //Caso o objeto com o atributo já possua valor, somamos + 1 a esse atributo.
+                }
+
+                var charRecorrente = "", numeroVezes = 0;
+
+                for (var key in guardaValor) {
+                    guardaValor[key];
+                    if (guardaValor[key] > numeroVezes) {
+                        charRecorrente = key;
+                        numeroVezes = guardaValor[key];
+                    }
+                }
+
             }
+            console.log(charRecorrente + ": " + numeroVezes);
         }
 
     </script>
